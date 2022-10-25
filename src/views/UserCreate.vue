@@ -70,11 +70,6 @@
 
 export default {
   name: "UserAdd",
-  props:{
-    comments:{
-
-    }
-  },
 
   data(){
     return{
@@ -92,10 +87,6 @@ export default {
         v => !!v || 'Position is required',
       ],
     }
-  },
-
-  computed:{
-
   },
 
   methods:{
@@ -120,9 +111,6 @@ export default {
     }
   },
 
-  async created() {
-    console.log(this.$route)
-  },
  async beforeCreate() {
    try {
      await this.$store.dispatch('setUsersData',(await this.$axios.get('position')).data)

@@ -51,14 +51,13 @@
             </div>
           </div>
           <!-- Modal footer -->
-          <div class="flex items-center justify-end p-6 pl-96 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
 
-            <button
-                @click="send"
-                type="button"
+            <div
+              class="w-full flex items-center p-5 justify-end space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+            <div class="w-[100px]">
+<button
+                :disabled="!valid"
                 class="text-white
-                     w-[20px]
-                     ml-32
                      bg-blue-700
                      hover:bg-blue-800
                      focus:ring-4
@@ -67,14 +66,20 @@
                      font-medium rounded-lg
                      text-sm px-5 py-2.5
                      text-center dark:bg-blue-600
-                     dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center">
+                     dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center"
+                type="button"
+                @click="send">
+              Prinyat
               <v-icon color="white" x-large>mdi-arrow-right-thin</v-icon>
             </button>
+            </div>
+          
+          </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
 </template>
 
 <script>

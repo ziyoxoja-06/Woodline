@@ -53,10 +53,7 @@ export default {
       ],
     }
   },
-
-  computed:{
-
-  },
+  
    methods:{
   clear:function (){
     this.$refs.form.reset()
@@ -76,8 +73,6 @@ export default {
 
   },
 
- async created() {
-  },
  async beforeCreate() {
     try {
       await this.$store.dispatch('setUsersData',(await this.$axios.get('position')).data)

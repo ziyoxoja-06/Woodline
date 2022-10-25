@@ -36,10 +36,7 @@ export default {
     present: [],
     positionNmae: []
   }),
-  async mounted() {
 
-    console.log(this.order, 'order')
-  },
   async beforeCreate() {
     try {
       await this.$store.dispatch('setOrderData', (await this.$axios.get('positionAll')).data)

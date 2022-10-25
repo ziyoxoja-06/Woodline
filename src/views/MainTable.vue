@@ -1,9 +1,9 @@
 <template>
-  <div class="container mx-auto text-center">
-    <div class="w-full min-h-[300px]  p-6 bg-blue-300">
+  <div class="container w-[100%] mx-auto text-center">
+    <div class="w-full h-fit  p-6 bg-blue-300">
 
       <div class="flex items-center">
-        <div class="w-fit md:w-full lg:w-full gap-x-10  flex py-4 items-center pr-5">
+        <div class="w-fit h-fit md:w-full lg:w-full gap-x-10  flex py-4 items-center pr-5">
           <div class="text-[13px] sm:text-[17px]">Priniyat zakaz:</div>
           <div class="w-fit lg:pr-10">
             <button
@@ -32,42 +32,50 @@
           </button>
         </div>
       </div>
-      <table class="w-full">
-        <tr v-for="(data, i) of  $store.getters['getMainTableData']" :key="i" class="border-b h-32 border-gray-800 ">
-          <td class="w-[20%]">
-            <button
-                :class="+data.order.delivery_date.slice(5,7)<todayMonth?'bg-red-600':
-                              +data.order.delivery_date.slice(8,10)<todayDay?'bg-red-600':
-                                +data.order.delivery_date.slice(8,10)<=(+todayDay)+3?'bg-yellow-400':
-                                  +data.order.delivery_date.slice(8,10)>(+todayDay)+3?'bg-green-600':''"
+
+
+      <table class="w-full h-fit">
+        <div v-for="(data, i) of  $store.getters['getMainTableData']" :key="i" class="border-b flex justify-between relative h-fit border-gray-800 ">
+          <div class="w-[33%] flex justify-center">
+            <div class="mt-[5%]">
+                <button
+                :class="+data.order.delivery_date.slice(5,7)<=todayMonth&& +data.order.delivery_date.slice(8,10)<todayDay?'bg-red-600':
+                               +data.order.delivery_date.slice(5,7)<=todayMonth&& +data.order.delivery_date.slice(8,10)<=(+todayDay)+3?'bg-yellow-400':
+                               +data.order.delivery_date.slice(5,7)<=todayMonth&& +data.order.delivery_date.slice(8,10)>(+todayDay)+3?'bg-green-600':'bg-green-600'
+                               "
+                
                 class="p-1
                            text-white
                            text-[8px]
                            sm:text-[15px]
                            rounded-3xl">{{ data.order.delivery_date }}
-            </button>
-            <div class="h-16
+                </button>
+                <div class="h-fit
                             flex
                             items-center
                             text-[12px]
                             sm:text-[25px]
                             justify-center">{{ data.order.model.model_name }}
             </div>
-          </td>
-          <td class="w-[20%]">
-            <span
+            </div>
+            
+          </div>
+          <div class="w-[33%] p-3 flex justify-center ">
+            <div class="h-fit ">
+              <span
                 class="extra-bold text-[12px] sm:text-[25px] border-b-2 border-gray-800 ">{{
                 data.order.order_id
               }}</span>
-            <div class="h-16 flex text-[12px] sm:text-[25px] items-center justify-center">{{ data.order.tissue }}</div>
-          </td>
-          <td>
+               <div class="h-fit flex text-[12px] sm:text-[25px] items-center justify-center">{{ data.order.tissue }}</div>
+            </div>
+          </div>
+          <div class="w-full">
             <div class="w-full bg-gray-200 rounded-full h-4 mt-4 dark:bg-gray-700">
 
               <div :class=" data.position.position_percent<30?'bg-red-600':
                                  data.position.position_percent<=70?'bg-yellow-400':
                                    data.position.position_percent>70?'bg-green-600':''"
-                   :style="{'width': data.position.position_percent+'%'}" class="h-4 text-[14px]
+                   :style="{'width': data.position.position_percent+'%'}" class="h-4 text-[14px] w-[95%]
                              rounded-full
                              flex
                              items-center
@@ -101,15 +109,15 @@
               <v-spacer/>
               <v-btn
                   :disabled="data.is_completed===false"
-                  class="info px-auto ml-3 rounded-3xl"
+                  class="info px-auto ml-3 rounded-3xl h-[20px] sm:h-[20px] md:h-[30px] lg:h-7"
                   @click="openLevelModalf(i)">
                 <v-icon color="white" x-large>mdi-arrow-right-thin</v-icon>
               </v-btn>
             </div>
 
-          </td>
+          </div>
 
-        </tr>
+        </div>
       </table>
       <modal :productLevel="openLevelModal" @close="closeLevelModal"/>
       <product-create :productCreate="openCreateProduct" @closemodal="closeCreateModal"/>
