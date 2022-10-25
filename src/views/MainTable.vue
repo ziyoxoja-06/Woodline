@@ -1,0 +1,199 @@
+<template>
+  <div class="container mx-auto text-center">
+    <div class="w-full min-h-[300px]  p-6 bg-blue-300">
+
+      <div class="flex items-center">
+        <div class="w-fit md:w-full lg:w-full gap-x-10  flex py-4 items-center pr-5">
+          <div class="text-[13px] sm:text-[17px]">Priniyat zakaz:</div>
+          <div class="w-fit lg:pr-10">
+            <button
+                v-if="$store.getters['getNavbarName'][0].role==='admin'"
+                class=" w-[20px] sm:w-[40px] md:w-[40px] lg:w-[40px] xl:w-[40px] 2xl:w-[40px] lg:mr-5 h-6 flex justify-center items-center bg-green-500 rounded-3xl "
+                type="button"
+                @click="openCreateProductf"
+            >
+             <v-icon color="white">mdi-arrow-down</v-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="w-fit md:w-full lg:w-full flex justify-center items-center pr-5 ml-0 lg:ml-24 md:ml-24">
+          <div class="text-[13px] sm:text-[17px]">Sort:</div>
+          <select id="" v-model="select" class="w-[100%] text-[13px] sm:text-[17px] ml-2 rounded" name="customerName">
+            <option v-for="(select,i) in selects" :key="i">{{ select }}</option>
+          </select>
+        </div>
+
+        <div class="w-fit md:w-full lg:w-full flex justify-center py-4 ml-0 lg:ml-24 md:ml-24">
+          <input v-model="sendId" class="w-full h-6 bg-white rounded-3xl p-1 pl-2 " placeholder="Search..."/>
+          <button class=" w-10 h-6 ml-3 flex justify-center items-center bg-green-500 rounded-2xl" type="button"
+                  @click="sendIdFunk(sendId)">
+                  <v-icon color="white">mdi-magnify</v-icon>
+          </button>
+        </div>
+      </div>
+      <table class="w-full">
+        <tr v-for="(data, i) of  $store.getters['getMainTableData']" :key="i" class="border-b h-32 border-gray-800 ">
+          <td class="w-[20%]">
+            <button
+                :class="+data.order.delivery_date.slice(5,7)<todayMonth?'bg-red-600':
+                              +data.order.delivery_date.slice(8,10)<todayDay?'bg-red-600':
+                                +data.order.delivery_date.slice(8,10)<=(+todayDay)+3?'bg-yellow-400':
+                                  +data.order.delivery_date.slice(8,10)>(+todayDay)+3?'bg-green-600':''"
+                class="p-1
+                           text-white
+                           text-[8px]
+                           sm:text-[15px]
+                           rounded-3xl">{{ data.order.delivery_date }}
+            </button>
+            <div class="h-16
+                            flex
+                            items-center
+                            text-[12px]
+                            sm:text-[25px]
+                            justify-center">{{ data.order.model.model_name }}
+            </div>
+          </td>
+          <td class="w-[20%]">
+            <span
+                class="extra-bold text-[12px] sm:text-[25px] border-b-2 border-gray-800 ">{{
+                data.order.order_id
+              }}</span>
+            <div class="h-16 flex text-[12px] sm:text-[25px] items-center justify-center">{{ data.order.tissue }}</div>
+          </td>
+          <td>
+            <div class="w-full bg-gray-200 rounded-full h-4 mt-4 dark:bg-gray-700">
+
+              <div :class=" data.position.position_percent<30?'bg-red-600':
+                                 data.position.position_percent<=70?'bg-yellow-400':
+                                   data.position.position_percent>70?'bg-green-600':''"
+                   :style="{'width': data.position.position_percent+'%'}" class="h-4 text-[14px]
+                             rounded-full
+                             flex
+                             items-center
+                             justify-center">
+                {{ data.position.position_percent }}%
+              </div>
+
+            </div>
+            <div class="flex items-center h-16 mt-2 justify-center text-[12px] sm:text-[25px]">
+              <div class="flex">
+                <div>{{ data.position.position_name + ": " }}{{ data.user ? data.user.user_name : "Bo'sh" }}</div>
+                <button
+                    :hidden="data.is_completed===true"
+                    class="mlm:w-[20px]"
+                    @click="data.is_completed=!data.is_completed; completFunk(i)">
+                  <div class="orbit-spinner">
+                    <div class="orbit"></div>
+                    <div class="orbit"></div>
+                    <div class="orbit"></div>
+                  </div>
+                </button>
+                <div class="w-[70px] h-fit mt-1 ml-2" :hidden="data.is_completed===false">
+                  <button
+                    :hidden="data.is_completed===false"
+                    class="w-full h-5 sm:h-6 md:h-7 lg:h-7 bg-green-500 flex justify-center items-center rounded-3xl">
+                  <v-icon color="white">mdi-check</v-icon>
+                </button>
+                </div>
+                
+              </div>
+              <v-spacer/>
+              <v-btn
+                  :disabled="data.is_completed===false"
+                  class="info px-auto ml-3 rounded-3xl"
+                  @click="openLevelModalf(i)">
+                <v-icon color="white" x-large>mdi-arrow-right-thin</v-icon>
+              </v-btn>
+            </div>
+
+          </td>
+
+        </tr>
+      </table>
+      <modal :productLevel="openLevelModal" @close="closeLevelModal"/>
+      <product-create :productCreate="openCreateProduct" @closemodal="closeCreateModal"/>
+      <search-modal :searchDates="searchData" :searchOpen="search" @searchEnd="searchEnd" />
+    </div>
+  </div>
+
+</template>
+
+<script>
+import {selects, todayDay, todayMonth} from "@/components/tableHelpFiles/Table.js";
+import modal from "@/components/ProductNextLevel";
+import ProductCreate from "@/components/ProductCreate";
+import searchModal from "@/components/SearchModal";
+
+
+export default {
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'maintable',
+  components: {ProductCreate, modal,searchModal},
+  computed: {},
+  data() {
+    return {
+      selects,
+      select: "srok dostavki",
+      allData: [],
+      todayDay,
+      todayMonth,
+      openLevelModal: true,
+      openCreateProduct: true,
+      search:true,
+      sendId:null,
+      searchData:[],
+    }
+  },
+
+  methods: {
+    searchEnd: function (end) {
+        this.search =end
+    },
+    sendIdFunk: async function (id) {
+
+     await this.$store.dispatch('setSearchModal', (await this.$axios.get(`orderProcess/${id}`)).data)
+      this.$store.getters['getSearchModal'].forEach(data=>{
+        this.searchData.push({
+          id:data.order.order_id,
+          model:data.order.model.model_name,
+          user:data.user?data.user.user_name:'',
+          date:data.order.delivery_date,
+          role:data.position.position_name
+        })
+      })
+      this.search =false
+    },
+    openLevelModalf: async function (i) {
+      this.openLevelModal = false
+      await this.$store.dispatch('setUserTableData', this.$store.getters['getMainTableData'][i])
+      await this.$store.dispatch('setMainTableDate', (await this.$axios.get('process')).data)
+    },
+    closeLevelModal: function (close) {
+      this.openLevelModal = close
+    },
+    openCreateProductf: async function () {
+      this.openCreateProduct = false
+    },
+    closeCreateModal: async function (close) {
+      this.openCreateProduct = close
+    },
+    completFunk(i) {
+      let id = this.$store.getters['getMainTableData'][i].process_id
+      this.$axios.put('process', {id})
+    }
+  },
+
+  async beforeCreate() {
+    try {
+      await this.$store.dispatch('setMainTableDate', (await this.$axios.get('process')).data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+</script>
+
+<style scoped>
+@import "../components/tableHelpFiles/Table.css";
+</style>
