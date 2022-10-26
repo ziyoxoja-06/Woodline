@@ -107,9 +107,12 @@
                 
               </div>
               <v-spacer/>
-              <v-btn
+              <div>
+                
+              </div>
+                <v-btn
                   :disabled="data.is_completed===false"
-                  class="info px-auto ml-3 rounded-3xl h-[20px] sm:h-[20px] md:h-[30px] lg:h-7"
+                  class="info px-auto ml-3 rounded-3xl "
                   @click="openLevelModalf(i)">
                 <v-icon color="white" x-large>mdi-arrow-right-thin</v-icon>
               </v-btn>

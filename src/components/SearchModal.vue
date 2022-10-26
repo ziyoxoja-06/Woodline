@@ -1,7 +1,7 @@
 <template>
-  <div tabindex="-1" :hidden="searchOpen" class=" w-[100%] h-auto bg-gray-900/40 fixed top-0  right-0 left-0 z-50 ">
-    <div   class=" w-full  h-auto md:h-auto flex items-center justify-center">
-      <div class="relative  pb-96 p-4 w-full max-w-2xl h-auto md:h-auto">
+  <div tabindex="-1" :hidden="searchOpen" class=" w-[100%] h-full bg-gray-900/40 absolute top-0  right-0 left-0 z-50 ">
+    <div   class=" w-full  h-fit md:h-fit flex items-center justify-center">
+      <div class="relative   p-4 w-full max-w-2xl ">
         <!-- Modal content -->
         <div class=" bg-white rounded-lg shadow dark:bg-gray-700">
           <!-- Modal header -->
