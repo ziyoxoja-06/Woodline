@@ -4,7 +4,7 @@
       <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="Поиск..."
           single-line
           hide-details
       ></v-text-field>
@@ -30,9 +30,9 @@ export default {
         filterable: true,
         value: 'id',
       },
-      { text: 'Model ', value: 'model' },
-      { text: 'Tissue ', value: 'tissue' },
-      { text: 'Date', value: 'date' },
+      { text: 'Модель ', value: 'model' },
+      { text: 'Ткань ', value: 'tissue' },
+      { text: 'Дата', value: 'date' },
     ]
   }),
  async mounted(){

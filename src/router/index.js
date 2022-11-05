@@ -18,6 +18,12 @@ const routes = [
     component: ()=> import('../views/MainTable.vue')
   },
   {
+    path: '/drag',
+    name: 'DragDrop',
+    meta:{layout:'main', auth:true},
+    component: ()=> import('../views/DragAndDrop.vue')
+  },
+  {
     path: '/order-product',
     name: 'OrderProduct',
     meta:{layout:'main', auth:true},

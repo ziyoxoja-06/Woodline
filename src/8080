@@ -1,0 +1,10 @@
+[PM2] Spawning PM2 daemon with pm2_home=C:\Users\USER\.pm2
+[PM2] PM2 Successfully daemonized
+[PM2] Starting C:\Users\USER\AppData\Roaming\npm\node_modules\pm2\lib\API\Serve.js in fork_mode (1 instance)
+[PM2] Done.
+[PM2] Serving C:\Users\USER\Desktop\gssss\src on port 8080
+┌─────┬────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name                       │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0   │ static-page-server-8080    │ default     │ 5.2.2   │ fork    │ 7340     │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ USER     │ disabled │
+└─────┴────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘

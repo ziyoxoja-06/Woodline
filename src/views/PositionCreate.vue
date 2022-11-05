@@ -12,22 +12,22 @@
             v-model="name"
             :rules="positionRules"
             name="name"
-            label="Position name"
+            label="Название позиции"
         ></v-text-field>
         <v-text-field
             v-model="percent"
             :rules="precentRules"
             name="precent"
-            label="Position precent"
+            label="Процент позиции"
         ></v-text-field>
         </v-form>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer/>
-        <v-btn class="blue" @click="save(name, percent)">Add</v-btn>
+        <v-btn class="blue" @click="save(name, percent)">Добавить</v-btn>
         <v-btn class="red" @click="clear">
-          clear
+          Удалить
         </v-btn>
       </v-card-actions>
 
@@ -46,14 +46,17 @@ export default {
       percent:'',
       valid: true,
       positionRules: [
-        v => !!v || 'Name is required',
+        v => !!v || 'Укажите позиции',
       ],
       precentRules: [
-        v => !!v || 'Name is required',
+        v => !!v || 'Требуется процент',
       ],
     }
   },
-  
+
+  computed:{
+
+  },
    methods:{
   clear:function (){
     this.$refs.form.reset()
@@ -73,6 +76,8 @@ export default {
 
   },
 
+ async created() {
+  },
  async beforeCreate() {
     try {
       await this.$store.dispatch('setUsersData',(await this.$axios.get('position')).data)

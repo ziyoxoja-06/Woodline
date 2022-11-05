@@ -12,7 +12,7 @@
                 type="button"
                 @click="openCreateProductf"
             >
-             <v-icon color="white">mdi-arrow-down</v-icon>
+              <v-icon color="white">mdi-arrow-down</v-icon>
             </button>
           </div>
         </div>
@@ -25,10 +25,10 @@
         </div>
 
         <div class="w-fit md:w-full lg:w-full flex justify-center py-4 ml-0 lg:ml-24 md:ml-24">
-          <input v-model="sendId" class="w-full h-6 bg-white rounded-3xl p-1 pl-2 " placeholder="Search..."/>
+          <input v-model="sendId" class="w-full h-6 bg-white rounded-3xl p-1 pl-2 " placeholder="Поиск..."/>
           <button class=" w-10 h-6 ml-3 flex justify-center items-center bg-green-500 rounded-2xl" type="button"
                   @click="sendIdFunk(sendId)">
-                  <v-icon color="white">mdi-magnify</v-icon>
+            <v-icon color="white">mdi-magnify</v-icon>
           </button>
         </div>
       </div>
@@ -38,57 +38,58 @@
         <div v-for="(data, i) of  $store.getters['getMainTableData']" :key="i" class="border-b flex justify-between relative h-fit border-gray-800 ">
           <div class="w-[33%] flex justify-center">
             <div class="mt-[5%]">
-                <button
-                :class="+data.order.delivery_date.slice(5,7)<=todayMonth&& +data.order.delivery_date.slice(8,10)<todayDay?'bg-red-600':
-                               +data.order.delivery_date.slice(5,7)<=todayMonth&& +data.order.delivery_date.slice(8,10)<=(+todayDay)+3?'bg-yellow-400':
-                               +data.order.delivery_date.slice(5,7)<=todayMonth&& +data.order.delivery_date.slice(8,10)>(+todayDay)+3?'bg-green-600':'bg-green-600'
+              <button
+                  :class="(+data.order.delivery_date.slice(5,7))<=(+todayMonth)&& +data.order.delivery_date.slice(8,10)<=todayDay?'bg-red-600':
+                               +data.order.delivery_date.slice(5,7)<=(+todayMonth)&& +data.order.delivery_date.slice(8,10)<=(+todayDay)+3?'bg-yellow-400':
+                               +data.order.delivery_date.slice(5,7)<=(+todayMonth)&& +data.order.delivery_date.slice(8,10)>(+todayDay)+3?'bg-green-600':'bg-green-600'
                                "
-                
-                class="p-1
+
+                  class="p-1
                            text-white
                            text-[8px]
                            sm:text-[15px]
                            rounded-3xl">{{ data.order.delivery_date }}
-                </button>
-                <div class="h-fit
+              </button>
+              <div class="h-fit
                             flex
                             items-center
                             text-[12px]
                             sm:text-[25px]
                             justify-center">{{ data.order.model.model_name }}
+              </div>
             </div>
-            </div>
-            
+
           </div>
           <div class="w-[33%] p-3 flex justify-center ">
             <div class="h-fit ">
               <span
-                class="extra-bold text-[12px] sm:text-[25px] border-b-2 border-gray-800 ">{{
-                data.order.order_id
-              }}</span>
-               <div class="h-fit flex text-[12px] sm:text-[25px] items-center justify-center">{{ data.order.tissue }}</div>
+                  class="extra-bold text-[12px] sm:text-[25px] border-b-2 border-gray-800 ">{{
+                  data.order.order_id
+                }}</span>
+              <div class="h-fit flex text-[12px] sm:text-[25px] items-center justify-center">{{ data.order.tissue }}</div>
             </div>
           </div>
           <div class="w-full">
             <div class="w-full bg-gray-200 rounded-full h-4 mt-4 dark:bg-gray-700">
 
-              <div :class=" data.position.position_percent<30?'bg-red-600':
-                                 data.position.position_percent<=70?'bg-yellow-400':
-                                   data.position.position_percent>70?'bg-green-600':''"
-                   :style="{'width': data.position.position_percent+'%'}" class="h-4 text-[14px] w-[95%]
+              <div :class=" data?.position?.position_percent===null?'':
+                                data?.position?.position_percent<30?'bg-red-600':
+                                 data?.position?.position_percent<=70?'bg-yellow-400':
+                                   data?.position?.position_percent>70?'bg-green-600':''"
+                   :style="{'width': data?.position?.position_percent+'%'}" class="h-4 text-[14px] w-[95%]
                              rounded-full
                              flex
                              items-center
                              justify-center">
-                {{ data.position.position_percent }}%
+                {{ data?.position?.position_percent }}%
               </div>
 
             </div>
             <div class="flex items-center h-16 mt-2 justify-center text-[12px] sm:text-[25px]">
               <div class="flex">
-                <div>{{ data.position.position_name + ": " }}{{ data.user ? data.user.user_name : "Bo'sh" }}</div>
+                <div>{{ data?.position?.position_name + ": " }}{{ data.user ? data.user.user_name : "Bo'sh" }}</div>
                 <button
-                    :hidden="data.is_completed===true"
+                    :hidden="data?.is_completed===true"
                     class="mlm:w-[20px]"
                     @click="data.is_completed=!data.is_completed; completFunk(i)">
                   <div class="orbit-spinner">
@@ -99,18 +100,18 @@
                 </button>
                 <div class="w-[70px] h-fit mt-1 ml-2" :hidden="data.is_completed===false">
                   <button
-                    :hidden="data.is_completed===false"
-                    class="w-full h-5 sm:h-6 md:h-7 lg:h-7 bg-green-500 flex justify-center items-center rounded-3xl">
-                  <v-icon color="white">mdi-check</v-icon>
-                </button>
+                      :hidden="data.is_completed===false"
+                      class="w-full h-5 sm:h-6 md:h-7 lg:h-7 bg-green-500 flex justify-center items-center rounded-3xl">
+                    <v-icon color="white">mdi-check</v-icon>
+                  </button>
                 </div>
-                
+
               </div>
               <v-spacer/>
               <div>
-                
+
               </div>
-                <v-btn
+              <v-btn
                   :disabled="data.is_completed===false"
                   class="info px-auto ml-3 rounded-3xl "
                   @click="openLevelModalf(i)">
@@ -159,18 +160,20 @@ export default {
 
   methods: {
     searchEnd: function (end) {
-        this.search =end
+      this.search =end
+      this.searchData=[]
+
     },
     sendIdFunk: async function (id) {
 
-     await this.$store.dispatch('setSearchModal', (await this.$axios.get(`orderProcess/${id}`)).data)
+      await this.$store.dispatch('setSearchModal', (await this.$axios.get(`orderProcess/${id}`)).data)
       this.$store.getters['getSearchModal'].forEach(data=>{
         this.searchData.push({
-          id:data.order.order_id,
-          model:data.order.model.model_name,
-          user:data.user?data.user.user_name:'',
-          date:data.order.delivery_date,
-          role:data.position.position_name
+          id:data?.order?.order_id,
+          model:data?.order?.model?.model_name,
+          user:data?.user?data?.user?.user_name:'',
+          date:data?.order?.delivery_date,
+          role:data?.position?.position_name
         })
       })
       this.search =false

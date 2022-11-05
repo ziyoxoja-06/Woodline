@@ -1,13 +1,14 @@
  const drawer = false,
     items = [
-    { title: 'Home', icon: 'mdi-view-dashboard', path:'/' },
-    { title: 'User Create', icon: 'mdi-account-plus', path:'/user-create' },
-    { title: 'Position Create', icon: 'mdi-table-plus', path:'/position-create' },
-    { title: 'Complate', icon: 'mdi-table', path:'/complate-projects' },
-        { title: 'Order', icon: 'mdi-order-bool-ascending', path:'/order-product' },
+    { title: 'Основная таблица', icon: 'mdi-view-dashboard', path:'/' },
+    { title: 'Пользователь Создать', icon: 'mdi-account-plus', path:'/user-create' },
+    { title: 'Позиция Создать', icon: 'mdi-table-plus', path:'/position-create' },
+    { title: 'Собран', icon: 'mdi-table', path:'/complate-projects' },
+        { title: 'Карточки на столе', icon: 'mdi-order-bool-ascending', path:'/order-product' },
+        { title: 'Календарь', icon: 'mdi-order-bool-ascending', path:'/drag' },
     ],
     itemsDrop = [
-    { title: 'Log out'},
+    { title: 'Chiqish'},
 ]
    export {
     drawer,items,itemsDrop

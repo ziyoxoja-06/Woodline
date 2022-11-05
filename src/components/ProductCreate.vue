@@ -10,7 +10,7 @@
           <!-- Modal header -->
           <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-              Id:
+              Priniyat zakaz
             </h3>
             <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" @click="closeCerate">
               <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -33,13 +33,13 @@
               <v-text-field
                   v-model="model"
                   :rules="modelRules"
-                  label="Model"
+                  label="Mодель"
                   required
               ></v-text-field>
               <v-text-field
                   v-model="tissue"
                   :rules="tissueRules"
-                  label="Tissue"
+                  label="Tкань"
                   required
               ></v-text-field>
             </v-form>
@@ -51,13 +51,14 @@
             </div>
           </div>
           <!-- Modal footer -->
+          <div class="flex items-center justify-end p-6 pl-96 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
 
-            <div
-              class="w-full flex items-center p-5 justify-end space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-            <div class="w-[100px]">
-<button
-                :disabled="!valid"
+            <button
+                @click="send"
+                type="button"
                 class="text-white
+                     w-[20px]
+                     ml-32
                      bg-blue-700
                      hover:bg-blue-800
                      focus:ring-4
@@ -66,20 +67,15 @@
                      font-medium rounded-lg
                      text-sm px-5 py-2.5
                      text-center dark:bg-blue-600
-                     dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center"
-                type="button"
-                @click="send">
-              Prinyat
-              <v-icon color="white" x-large>mdi-arrow-right-thin</v-icon>
+                     dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center">
+              Принять
+              <img class="w-5 ml-1" src="../image/right-arrowWhite.png" alt="image">
             </button>
-            </div>
-          
-          </div>
           </div>
         </div>
       </div>
     </div>
-
+  </div>
 </template>
 
 <script>
@@ -91,13 +87,13 @@ export default {
     return{
       valid: true,
       idRules: [
-        v => !!v || 'Id is required',
+        v => !!v || 'Требуется id',
       ],
       modelRules: [
-        v => !!v || 'Model is required',
+        v => !!v || 'Требуется модель',
       ],
       tissueRules: [
-        v => !!v || 'Tissue is required',
+        v => !!v || 'Требуется ткань',
       ],
       openmodal:true,
       calendar:null,
@@ -119,6 +115,7 @@ export default {
       this.$refs.form.reset()
     },
     send:async function () {
+      console.log((await this.$axios.get('process')).data)
       if (this.$refs.form.validate()&&this.calendar!==null) {
       let orderId =this.order_id
       let model = this.model
@@ -126,6 +123,7 @@ export default {
       let deliveryDate=this.calendar
      await this.$axios.post('order',{orderId,model,tissue,deliveryDate})
       await this.$store.dispatch('setMainTableDate',(await this.$axios.get('process')).data)
+        console.log(true)
           this.alert=true
         setTimeout(()=>{
           this.alert=false

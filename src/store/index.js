@@ -9,6 +9,8 @@ import mainTable from "@/store/MainTableData";
 import complateProjects from "@/store/ComplateProjects";
 import orderData from "@/store/OrderData";
 import searchModal from "@/store/SearchModal";
+import dragAndDrop from "@/store/DragAndDrop";
+
 
 Vue.use(Vuex)
 
@@ -22,6 +24,7 @@ export default new Vuex.Store({
     mainTable,
     complateProjects,
     orderData,
-    searchModal
+    searchModal,
+    dragAndDrop
   }
 })

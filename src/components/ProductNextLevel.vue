@@ -7,7 +7,7 @@
           <!-- Modal header -->
           <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-              Id: {{ $store.getters['getUserTableData'].id }}
+              Id: {{ $store.getters['getUserTableData']?.order?.order_id }}
             </h3>
             <button class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                     type="button"
@@ -32,49 +32,42 @@
                   v-model="selectPosition"
                   :items="positonsItemData"
                   :rules="positionRules"
-                  label="Position"
+                  label="Позиция"
                   required
               ></v-select>
               <v-select
                   v-model="selectName"
                   :items="usersItemData"
                   :rules="nameRules"
-                  label="User"
+                  label="Пользователь"
                   required
               ></v-select>
             </v-form>
           </div>
           <!-- Modal footer -->
           <div
-              class="w-full 
-                    flex 
-                    items-center 
-                    p-5 justify-end
-                     space-x-2 
-                     rounded-b 
-                     border-t 
-                     border-gray-200 
-                     dark:border-gray-600">
-            <div class="w-[100px]">
-<button
+              class="flex items-center justify-end p-6 pl-96 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+
+            <button
                 :disabled="!valid"
                 class="text-white
+                     w-[20px]
+                     ml-32
                      bg-blue-700
                      hover:bg-blue-800
                      focus:ring-4
                      focus:outline-none
                      focus:ring-blue-300
                      font-medium rounded-lg
-                     text-sm px-5 
+                     text-sm px-5 py-2.5
                      text-center dark:bg-blue-600
                      dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center"
                 type="button"
                 @click="send">
-              Prinyat
-              <v-icon color="white" x-large>mdi-arrow-right-thin</v-icon>
+              Принять
+              <img alt="image" class="w-5 ml-1" src="../image/right-arrowWhite.png">
             </button>
-            </div>
-          
+
           </div>
         </div>
       </div>
@@ -91,10 +84,10 @@ export default {
     return {
       valid: true,
       nameRules: [
-        v => !!v || 'Name is required',
+        v => !!v || 'Укажите имя',
       ],
       positionRules: [
-        v => !!v || 'Position is required',
+        v => !!v || 'Укажите позиции',
 
       ],
       openmodal: true,
@@ -164,4 +157,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

@@ -45,6 +45,7 @@
         v-model="drawer"
         app
         dark
+        class="z-30"
     >
       <v-list dense>
         <v-list-item
@@ -52,18 +53,19 @@
             :key="item.title"
             link
             :to="item.path"
+            @click="drawer=false"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title >{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-main>
-      <router-view/>
+      <router-view :drawers="drawer" />
     </v-main>
   </v-app>
 </template>

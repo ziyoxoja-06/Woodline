@@ -5,12 +5,12 @@
           <thead>
           <tr>
             <th class="text-left">
-              Name
+              Имя
             </th>
             <th class="text-left">
-              Position
+              Процент
             </th>
-            <th>Delete</th>
+            <th>Удалить</th>
 
           </tr>
           </thead>
@@ -24,7 +24,7 @@
             <td>
               <v-btn class=" rounded-xl"
                      color="error">
-                  Delete
+                Удалить
               </v-btn>
             </td>
           </tr>
@@ -37,17 +37,5 @@
 <script>
 export default {
   name: "SimpleTable",
-  data(){
-    return{
-    }
-  },
-  methods:{
-
-  },
-
 }
 </script>
-
-<style scoped>
-
-</style>

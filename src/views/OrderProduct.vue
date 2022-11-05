@@ -9,7 +9,7 @@
           <span>
             <v-badge
                 color="green"
-                :content="item.process.length"
+                :content="item?.process.length"
             >
             {{positionNmae[i]}}
         </v-badge>
