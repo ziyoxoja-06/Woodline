@@ -71,7 +71,7 @@
 
                 <Draggable
                     v-for="(project,index) in dayKey?dayKey:0" :key="project?.order_id"
-                >
+                >{{index+1 <=  mainData.count>1?Math.round(mainData.count):Math.ceil(mainData.count)?' bg-green-600 ': ' bg-red-600 text-white' }}
                   <dropcard
 
                       :class="index+1 <=  mainData.count>1?Math.round(mainData.count):Math.ceil(mainData.count)?'border-green-600': ' border-red-600 text-red-600 ' "
@@ -87,7 +87,7 @@
                     </div>
 <!--                    <div :hidden="true">{{filterDate=project}}</div>-->
                     <div
-                        :class="index+1 <=  mainData.count>1?Math.round(mainData.count):Math.ceil(mainData.count)?' bg-green-600 ': ' bg-red-600 text-white' "
+                        :class="index+1 <= ( mainData.count>1?Math.round(mainData.count):Math.ceil(mainData.count))?' bg-green-600 ': ' bg-red-600 text-white' "
                         class="min-w-fit
                       px-2
                       ml-2
