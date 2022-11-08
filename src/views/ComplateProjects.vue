@@ -7,12 +7,14 @@
           label="Поиск..."
           single-line
           hide-details
+
       ></v-text-field>
     </v-card-title>
     <v-data-table
         :headers="headers"
         :items="coplateData"
         :search="search"
+        :items-per-page="5"
     ></v-data-table>
   </v-card>
 </template>

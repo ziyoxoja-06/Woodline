@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import {drawer,itemsDrop,items} from './MainLayouData'
+import {itemsDrop,items} from './MainLayouData'
 export default {
 // eslint-disable-next-line
   name: "MainLayout",
@@ -82,7 +82,7 @@ export default {
     }
   },
   data: () => ({
-    drawer,
+    drawer:false,
     itemsDrop,
     items,
     date:null,

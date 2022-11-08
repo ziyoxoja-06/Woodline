@@ -11,7 +11,7 @@
                 color="green"
                 :content="item?.process.length"
             >
-            {{positionNmae[i]}}
+            {{positionNmae[i+1]}}
         </v-badge>
           </span>
 
@@ -46,16 +46,19 @@ export default {
         this.present =  this.$store.getters['getPositionTableData'].sort((a, b) => {
         a.position_percent - b.position_percent
       })
+        console.log(this.present,'move')
         this.order =  this.$store.getters['getOrderData']
 
         for (let i = 0; i < this.order.length; i++) {
+          console.log(this.order[i].position_percent)
           for (let j = 0; j < this.present.length; j++) {
+            console.log(this.present[j].position_percent)
             this.present[j].position_percent===this.order[i].position_percent?
                 this.positionNmae.push(this.present[j+1].position_name):''
           }
         }
       },200)
-
+      console.log(this.present,'move2')
     } catch (err) {
       console.log(err)
     }

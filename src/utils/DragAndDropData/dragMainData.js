@@ -1,4 +1,4 @@
-import {result} from "@/utils/result (3)";
+
 
 const fullData ={
     btnPrecent:'',
@@ -30,7 +30,7 @@ const fullData ={
 }
 const dragMethhods={
     async changeData() {
-        await this.$store.dispatch('setDragAndDrop',result)
+        await this.$store.dispatch('setDragAndDrop',(await this.$axios.get(`/orderCalendar/?date=${this.changeCalendar}`)).data)
         this.mainData = await this.$store.getters['getDragAndDrop']
     },
     funk(key) {

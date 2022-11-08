@@ -2,7 +2,7 @@ let result = {
   count: 3,
   days: [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday',],
   sendingDataDays: {
-    September: "Wednesday",
+    September: "Sunday",
     October: "Monday",
     November: "Tuesday",
   },

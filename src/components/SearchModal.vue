@@ -28,6 +28,7 @@
                   :headers="headers"
                   :items="searchDates"
                   :search="search"
+                  :items-per-page="5"
               ></v-data-table>
             </v-card>
           </div>

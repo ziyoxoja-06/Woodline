@@ -38,10 +38,13 @@
         <div v-for="(data, i) of  $store.getters['getMainTableData']" :key="i" class="border-b flex justify-between relative h-fit border-gray-800 ">
           <div class="w-[33%] flex justify-center">
             <div class="mt-[5%]">
+
               <button
-                  :class="(+data.order.delivery_date.slice(5,7))<=(+todayMonth)&& +data.order.delivery_date.slice(8,10)<=todayDay?'bg-red-600':
-                               +data.order.delivery_date.slice(5,7)<=(+todayMonth)&& +data.order.delivery_date.slice(8,10)<=(+todayDay)+3?'bg-yellow-400':
-                               +data.order.delivery_date.slice(5,7)<=(+todayMonth)&& +data.order.delivery_date.slice(8,10)>(+todayDay)+3?'bg-green-600':'bg-green-600'
+                  :class="(+(data.order.delivery_date.slice(0,4)))<(thisYear)?'bg-red-500':
+                            (+(data.order.delivery_date.slice(5,7)))>=(+todayMonth)?
+                              (+data.order.delivery_date.slice(5,7)>=(+todayMonth))&&(+data.order.delivery_date.slice(8,10)<(+todayDay)+2)?'bg-red-600':
+                               (+data.order.delivery_date.slice(5,7)>=(+todayMonth))&&(+data.order.delivery_date.slice(8,10)<=(+todayDay)+6)?'bg-yellow-400':
+                               +data.order.delivery_date.slice(5,7)>=(+todayMonth)&& +data.order.delivery_date.slice(8,10)>=(+todayDay)+6?'bg-green-600':'bg-red-600':'bg-red-600'
                                "
 
                   class="p-1
@@ -132,7 +135,7 @@
 </template>
 
 <script>
-import {selects, todayDay, todayMonth} from "@/components/tableHelpFiles/Table.js";
+import {selects, todayDay, todayMonth,thisYear} from "@/utils/tableHelpFiles/Table.js";
 import modal from "@/components/ProductNextLevel";
 import ProductCreate from "@/components/ProductCreate";
 import searchModal from "@/components/SearchModal";
@@ -150,6 +153,7 @@ export default {
       allData: [],
       todayDay,
       todayMonth,
+      thisYear,
       openLevelModal: true,
       openCreateProduct: true,
       search:true,
@@ -209,5 +213,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../components/tableHelpFiles/Table.css";
+@import "../utils/tableHelpFiles/Table.css";
 </style>

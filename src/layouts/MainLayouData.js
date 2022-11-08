@@ -1,5 +1,5 @@
- const drawer = false,
-    items = [
+
+ let   items = [
     { title: 'Основная таблица', icon: 'mdi-view-dashboard', path:'/' },
     { title: 'Пользователь Создать', icon: 'mdi-account-plus', path:'/user-create' },
     { title: 'Позиция Создать', icon: 'mdi-table-plus', path:'/position-create' },
@@ -11,5 +11,5 @@
     { title: 'Chiqish'},
 ]
    export {
-    drawer,items,itemsDrop
+    items,itemsDrop
    }
