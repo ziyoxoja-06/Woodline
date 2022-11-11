@@ -90,7 +90,7 @@
             </div>
             <div class="flex items-center h-16 mt-2 justify-center text-[12px] sm:text-[25px]">
               <div class="flex">
-                <div>{{ data?.position?.position_name + ": " }}{{ data.user ? data.user.user_name : "Bo'sh" }}</div>
+                <div>{{ data?.position?.position_name===undifined?"Pazitsya va ": data?.position?.position_name + ": " }}{{ data.user ? data.user.user_name : "Odam tanlang" }}</div>
                 <button
                     :hidden="data?.is_completed===true"
                     class="mlm:w-[20px]"

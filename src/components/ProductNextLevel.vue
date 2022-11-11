@@ -1,5 +1,8 @@
 <template>
   <div :hidden="productLevel" class="w-[100%] h-[100%] bg-gray-900/40 fixed top-0  right-0 left-0 z-50 " tabindex="-1">
+    <div tabindex="1" class="w-full flex justify-center absolute">
+      <v-alert class="text-center" width="100%" v-if="alert" type="success">Pozitsya o'zgardi</v-alert>
+    </div>
     <div class="overflow-y-auto overflow-x-hidden w-full md:inset-0 h-modal md:h-full flex items-center justify-center">
       <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
         <!-- Modal content -->
@@ -48,25 +51,16 @@
           <div
               class="flex items-center justify-end p-6 pl-96 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
 
-            <button
-                :disabled="!valid"
-                class="text-white
-                     w-[20px]
-                     ml-32
-                     bg-blue-700
-                     hover:bg-blue-800
-                     focus:ring-4
-                     focus:outline-none
-                     focus:ring-blue-300
-                     font-medium rounded-lg
-                     text-sm px-5 py-2.5
-                     text-center dark:bg-blue-600
-                     dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center"
+            <v-btn
+                :loading="loading"
+                :disabled="loading||!valid"
+                class="ma-2"
+                color="info"
                 type="button"
                 @click="send">
               Принять
               <img alt="image" class="w-5 ml-1" src="../image/right-arrowWhite.png">
-            </button>
+            </v-btn>
 
           </div>
         </div>
@@ -82,6 +76,9 @@ export default {
   name: "Modal",
   data() {
     return {
+      loader: null,
+      loading: false,
+      alert:false,
       valid: true,
       nameRules: [
         v => !!v || 'Укажите имя',
@@ -117,14 +114,22 @@ export default {
         value: await this.takeUser[i].user_id,
       })
     }
+
   },
-  watch: {},
+  watch: {
+
+  },
   methods: {
     closeModal: function () {
-      this.$emit('close', this.openmodal)
+      this.loader = null
+      this.loading=false
       this.$refs.form.reset()
+      this.$emit('close', this.openmodal)
     },
     send: async function () {
+      this.loader = 'loading'
+      const l = this.loader
+      this[l] = !this[l]
 
       if (this.$refs.form.validate()) {
               let id = this.$store.getters['getUserTableData'].process_id
@@ -133,11 +138,18 @@ export default {
               let user = this.selectName
 
         await this.$axios.post('process', {id, order, position, user})
-        await this.$emit('close', this.openmodal)
         await this.$store.dispatch('setMainTableDate', [])
-
+        console.log( await this.$store.dispatch('setMainTableDate', (await this.$axios.get('process')).data),'wrg')
         await this.$store.dispatch('setMainTableDate', (await this.$axios.get('process')).data)
         this.$refs.form.reset()
+
+        this.alert=true
+       setTimeout(()=>{
+          this.$emit('close', this.openmodal)
+         this.alert=false
+         this[l] = false
+       },3000)
+        this.loader = null
 
       } else {
         this.selectPosition = ''

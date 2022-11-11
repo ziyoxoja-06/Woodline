@@ -25,7 +25,10 @@
 
       <v-card-actions>
         <v-spacer/>
-        <v-btn class="blue" @click="save(name, percent)">Добавить</v-btn>
+        <v-btn class="blue"
+               :loading="loading"
+               :disabled="loading"
+               @click="save(name, percent)">Добавить</v-btn>
         <v-btn class="red" @click="clear">
           Удалить
         </v-btn>
@@ -42,6 +45,8 @@ export default {
 
   data(){
     return{
+      loader: null,
+      loading: false,
       name:'',
       percent:'',
       valid: true,
@@ -59,15 +64,24 @@ export default {
   },
    methods:{
   clear:function (){
+    this.loader = null
+    this.loading=false
     this.$refs.form.reset()
   },
     // eslint-disable-next-line
     save:async function (name, percent) {
+      this.loader = 'loading'
+      const l = this.loader
+      this[l] = !this[l]
       if (this.$refs.form.validate()) {
           await this.$axios.post('position', {name,percent})
           await this.$store.dispatch('setPositionTableData',(await this.$axios.get('position')).data)
           await this.$store.dispatch('setUsersData',(await this.$axios.get('position')).data)
         this.$refs.form.reset()
+        setTimeout(()=>{
+          this[l] = false
+        },2000)
+        this.loader = null
       }else {
         this.name=''
         this.percent=''

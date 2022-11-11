@@ -53,7 +53,10 @@
           <!-- Modal footer -->
           <div class="flex items-center justify-end p-6 pl-96 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
 
-            <button
+            <v-btn
+                color="blue darken-2 white--text"
+                :loading="loading"
+                :disabled="loading||!valid"
                 @click="send"
                 type="button"
                 class="text-white
@@ -70,7 +73,7 @@
                      dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center">
               Принять
               <img class="w-5 ml-1" src="../image/right-arrowWhite.png" alt="image">
-            </button>
+            </v-btn>
           </div>
         </div>
       </div>
@@ -85,6 +88,8 @@ export default {
   name: "ProductCreate",
   data(){
     return{
+      loader: null,
+      loading: false,
       valid: true,
       idRules: [
         v => !!v || 'Требуется id',
@@ -111,11 +116,15 @@ export default {
   },
   methods: {
     closeCerate: async function(){
+      this.loader = null
+      this.loading=false
       this.$emit('closemodal',this.openmodal)
       this.$refs.form.reset()
     },
     send:async function () {
-      console.log((await this.$axios.get('process')).data)
+      this.loader = 'loading'
+      const l = this.loader
+      this[l] = !this[l]
       if (this.$refs.form.validate()&&this.calendar!==null) {
       let orderId =this.order_id
       let model = this.model
@@ -123,13 +132,16 @@ export default {
       let deliveryDate=this.calendar
      await this.$axios.post('order',{orderId,model,tissue,deliveryDate})
       await this.$store.dispatch('setMainTableDate',(await this.$axios.get('process')).data)
-        console.log(true)
-          this.alert=true
-        setTimeout(()=>{
-          this.alert=false
-        },3000)
         this.calendar=' '
         this.$refs.form.reset()
+        this.alert=true
+        setTimeout(()=>{
+          this.alert=false
+          this[l] = false
+        },2000)
+        this.loader = null
+
+
         // this.$emit('closemodal',this.openmodal)
       }else {
         this.order_id=''; this.model=''; this.tissue=''; this.calendar=null

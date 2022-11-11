@@ -22,7 +22,10 @@
           ></v-text-field>
           <v-card-actions>
             <v-spacer/>
-            <v-btn class="blue" @click="save">Добавить</v-btn>
+            <v-btn class="blue"
+                   :loading="loading"
+                   :disabled="loading"
+                   @click="save">Добавить</v-btn>
             <v-btn class="red" @click="clear">
               Удалить
             </v-btn>
@@ -72,6 +75,8 @@ export default {
   },
   data() {
     return {
+      loader: null,
+      loading: false,
       name: '',
       password: '',
       position: [],
@@ -89,18 +94,25 @@ export default {
   },
   methods: {
     clear: function () {
-      this.name = '';
-      this.password = ''
-      this.position = []
+      this.loader = null
+      this.loading=false
+      this.$refs.form.reset()
     },
     // eslint-disable-next-line
     save: async function () {
+      this.loader = 'loading'
+      const l = this.loader
+      this[l] = !this[l]
       if (this.$refs.form.validate()) {
         const position = this.position
         const name = this.name
         const password = this.password
         await this.$axios.post('user', {name, password, position})
         this.$refs.form.reset()
+        setTimeout(()=>{
+          this[l] = false
+        },2000)
+        this.loader = null
       } else {
         this.name = ''
         this.password = ''
