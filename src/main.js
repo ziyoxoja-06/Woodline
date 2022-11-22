@@ -7,6 +7,7 @@ import dateFilter from "@/filters/date.filter";
 import tailwind from './assets/tailwind.css'
 import vuetify from './plugins/vuetify'
 import store from './store'
+import print from "vue-print-nb/print";
 
 Vue.config.productionTip = false
 Vue.filter('date',dateFilter)
@@ -15,5 +16,6 @@ new Vue({
   tailwind,
   vuetify,
   store,
+  print,
   render: h => h(App)
 }).$mount('#app')

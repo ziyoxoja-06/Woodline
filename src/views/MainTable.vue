@@ -40,25 +40,25 @@
             <div class="mt-[5%]">
 
               <button
-                  :class="(+(data.order.delivery_date.slice(0,4)))<(thisYear)?'bg-red-500':
-                            (+(data.order.delivery_date.slice(5,7)))>=(+todayMonth)?
-                              (+data.order.delivery_date.slice(5,7)>=(+todayMonth))&&(+data.order.delivery_date.slice(8,10)<(+todayDay)+2)?'bg-red-600':
-                               (+data.order.delivery_date.slice(5,7)>=(+todayMonth))&&(+data.order.delivery_date.slice(8,10)<=(+todayDay)+6)?'bg-yellow-400':
-                               +data.order.delivery_date.slice(5,7)>=(+todayMonth)&& +data.order.delivery_date.slice(8,10)>=(+todayDay)+6?'bg-green-600':'bg-red-600':'bg-red-600'
+                  :class="(+(data?.order?.delivery_date.slice(0,4)))<(thisYear)?'bg-red-500':
+                            (+(data?.order?.delivery_date.slice(5,7)))>=(+todayMonth)?
+                              (+data?.order?.delivery_date.slice(5,7)>=(+todayMonth))&&(+data?.order?.delivery_date.slice(8,10)<(+todayDay)+2)?'bg-red-600':
+                               (+data?.order?.delivery_date.slice(5,7)>=(+todayMonth))&&(+data?.order?.delivery_date.slice(8,10)<=(+todayDay)+6)?'bg-yellow-400':
+                               +data?.order?.delivery_date.slice(5,7)>=(+todayMonth)&& +data?.order?.delivery_date.slice(8,10)>=(+todayDay)+6?'bg-green-600':'bg-red-600':'bg-red-600'
                                "
 
                   class="p-1
                            text-white
                            text-[8px]
                            sm:text-[15px]
-                           rounded-3xl">{{ data.order.delivery_date }}
+                           rounded-3xl">{{ data.order?.delivery_date }}
               </button>
               <div class="h-fit
                             flex
                             items-center
                             text-[12px]
                             sm:text-[25px]
-                            justify-center">{{ data.order.model.model_name }}
+                            justify-center">{{ data.order?.model?.model_name }}
               </div>
             </div>
 
@@ -67,7 +67,7 @@
             <div class="h-fit ">
               <span
                   class="extra-bold text-[12px] sm:text-[25px] border-b-2 border-gray-800 ">{{
-                  data.order.order_id
+                  data?.order?.order_id
                 }}</span>
               <div class="h-fit flex text-[12px] sm:text-[25px] items-center justify-center">{{ data.order.tissue }}</div>
             </div>
@@ -90,7 +90,7 @@
             </div>
             <div class="flex items-center h-16 mt-2 justify-center text-[12px] sm:text-[25px]">
               <div class="flex">
-                <div>{{ data?.position?.position_name===undifined?"Pazitsya va ": data?.position?.position_name + ": " }}{{ data.user ? data.user.user_name : "Odam tanlang" }}</div>
+                <div>{{ data?.position?.position_name===undefined?"Pazitsya va ": data?.position?.position_name + ": " }}{{ data.user ? data.user.user_name : "Odam tanlang" }}</div>
                 <button
                     :hidden="data?.is_completed===true"
                     class="mlm:w-[20px]"

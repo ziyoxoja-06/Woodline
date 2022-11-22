@@ -20,7 +20,7 @@ const fullData ={
             ru: ['Понедельник ', 'Вторник ', 'Среда ', 'Четверг ', 'Пятница ', 'Суббота ', 'Воскресенье',],
         },
     },
-    navKey: '',
+    navKey: ' ',
     draggingCard: {
         key: '',
         lane: "",
@@ -44,7 +44,7 @@ const dragMethhods={
                 lane: lane,
                 index: payload.index,
                 cardData: {
-                    ...this.mainData.data[key][i][lane][payload.index]
+                    ...this.mainData?.data[key][i][lane][payload.index]
                 }
             }
         }
@@ -52,24 +52,24 @@ const dragMethhods={
     async handleDrop(lane, dropResult, key, i) {
 
         const {removedIndex, addedIndex} = dropResult
-        if (lane === this.draggingCard.lane && removedIndex === addedIndex) {
+        if (lane === this.draggingCard?.lane && removedIndex === addedIndex) {
             return;
         }
         if (removedIndex !== null) {
             this.mainData?.data[key][i][lane].splice(removedIndex, 1)
         }
         if (addedIndex !== null) {
-            this.mainData?.data[key][i][lane].splice(addedIndex, 0, this.draggingCard.cardData)
+            this.mainData?.data[key][i][lane].splice(addedIndex, 0, this.draggingCard?.cardData)
 
-            this.modalData = this.draggingCard.cardData
+            this.modalData = this.draggingCard?.cardData
             this.openDrag = false
             this.today = new Date().toISOString().slice(0, 4);
             // eslint-disable-next-line
             let filterMonth = ''
             let filterDay = ''
-            for (let j = 0; j < this.calendar.monthNames.length; j++) {
+            for (let j = 0; j < this.calendar?.monthNames.length; j++) {
                 // eslint-disable-next-line
-                if (this.calendar.monthNames[j] === key) {
+                if (this.calendar?.monthNames[j] === key) {
                     if ((j+1).toString().length === 2) {
                         filterMonth = (j+1)
                     } else {

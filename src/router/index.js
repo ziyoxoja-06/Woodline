@@ -36,6 +36,18 @@ const routes = [
     component: ()=> import('../views/ComplateProjects.vue')
   },
   {
+    path: '/salary',
+    name: 'SalaryUsers',
+    meta:{layout:'main', auth:true},
+    component: ()=> import('../views/SalaryUsers.vue')
+  },
+  {
+    path: '/price',
+    name: 'CreatePrice',
+    meta:{layout:'main', auth:true},
+    component: ()=> import('../views/CreatePrice.vue')
+  },
+  {
     // eslint-disable-next-line
     path: '/position-create',
     name: 'PositionCreate',

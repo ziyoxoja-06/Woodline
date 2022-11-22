@@ -74,7 +74,7 @@ function dragMainCard(drawer) {
        '     min-h-[200px]'
 }
 function startMonthWeek(drawers,mainData,key,calendar){
-    return drawers===true?mainData.sendingDataDays[key]===calendar.days.uz[0]?'hidden':
+    return drawers===true?mainData?.sendingDataDays[key]===calendar.days.uz[0]?'hidden':
         mainData.sendingDataDays[key]===calendar.days.uz[1]?'  md:w-[6.3rem] lg:w-[9rem] xl:w-[10.5rem] 2xl:w-[26rem] ':
             mainData?.sendingDataDays[key]===calendar.days.uz[2]?'  lg:w-[22rem] ':
                 mainData?.sendingDataDays[key]===calendar.days.uz[3]?'    lg:w-[32.7rem]':
@@ -82,8 +82,8 @@ function startMonthWeek(drawers,mainData,key,calendar){
                         mainData?.sendingDataDays[key]===calendar.days.uz[5]?'sm:w-[33rem] md:w-[39rem] lg:w-[55rem] xl:w-[65rem] 2xl:w-[79rem] ':
                             mainData?.sendingDataDays[key]===calendar.days.uz[6]?'sm:w-[33.6rem] md:w-[39.5rem] lg:w-[55.7rem] xl:w-[66rem] 2xl:w-[79.7rem]':''
         :
-        mainData.sendingDataDays[key]===calendar.days.uz[0]?'hidden':
-            mainData.sendingDataDays[key]===calendar.days.uz[1]?'md:w-[6.3rem] lg:w-[9rem] xl:w-[10.5rem] 2xl:w-[13rem]':
+        mainData?.sendingDataDays[key]===calendar.days.uz[0]?'hidden':
+            mainData?.sendingDataDays[key]===calendar.days.uz[1]?'md:w-[6.3rem] lg:w-[9rem] xl:w-[10.5rem] 2xl:w-[13rem]':
                 mainData?.sendingDataDays[key]===calendar.days.uz[2]?'md:w-[6.3rem] lg:w-[18.3rem] xl:w-[21.7rem] 2xl:w-[26.3rem] ':
                     mainData?.sendingDataDays[key]===calendar.days.uz[3]?'lg:w-[27.7rem] xl:w-[32.7rem] 2xl:w-[39.8rem]':
                         mainData?.sendingDataDays[key]===calendar.days.uz[4]?'lg:w-[46.5rem] xl:w-[55.1rem] 2xl:w-[53.1rem]':

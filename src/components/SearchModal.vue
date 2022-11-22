@@ -57,7 +57,6 @@ export default {
   data:()=>({
     searchs:true,
     search:'',
-
     headers: [
       {
         text: 'Id',

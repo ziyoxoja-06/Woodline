@@ -118,6 +118,7 @@ export default {
     closeCerate: async function(){
       this.loader = null
       this.loading=false
+      this.calendar=' '
       this.$emit('closemodal',this.openmodal)
       this.$refs.form.reset()
     },
@@ -131,6 +132,7 @@ export default {
       let tissue = this.tissue
       let deliveryDate=this.calendar
      await this.$axios.post('order',{orderId,model,tissue,deliveryDate})
+        console.log(  await this.$store.dispatch('setMainTableDate',(await this.$axios.get('process'))))
       await this.$store.dispatch('setMainTableDate',(await this.$axios.get('process')).data)
         this.calendar=' '
         this.$refs.form.reset()

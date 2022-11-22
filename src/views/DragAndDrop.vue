@@ -18,7 +18,7 @@
                     class="flex justify-center my-3 w-full items-center ">
                   <span class="text-xl w-20 text-center lg:ml-80 md:ml-72 2xl:ml-80">потенциальная мощность</span>
                   <span class="text-3xl w-16 pl-20">{{
-                      mainData.count > 1 ? Math.round(mainData.count) : Math.ceil(mainData.count)<1?1:Math.ceil(mainData.count)
+                      mainData?.count > 1 ? Math.round(mainData?.count) : Math.ceil(mainData.count)<1?1:Math.ceil(mainData.count)
                     }}</span>
                   <div class="w-fit  flex justify-end">
                     <div class=" bg-blue-500 ml-5">
@@ -30,7 +30,7 @@
               </div>
               <div class="flex justify-space-between  px-2 md:pr-3" @mouseenter="scrollHeadStart"
                    @mouseleave="scrollHeadFinish">
-                <v-card v-for="(card,d) in calendar.days.ru" :key="d"
+                <v-card v-for="(card,d) in calendar?.days?.ru" :key="d"
                         class="bg-amber-500
                                font-extrabold
                                text-center
@@ -73,7 +73,7 @@
                 >
                   <dropcard
 
-                      :class="index+1 <= ( mainData.count > 1 ? Math.round(mainData.count) : Math.ceil(mainData.count)<1?1:Math.ceil(mainData.count))?'border-green-600 border-gray-600': ' border-red-600 text-red-600 ' "
+                      :class="index+1 <= ( mainData?.count > 1 ? Math.round(mainData?.count) : Math.ceil(mainData?.count)<1?1:Math.ceil(mainData?.count))?'border-green-600 border-gray-600': ' border-red-600 text-red-600 ' "
                       class="text-[12px]
                     font-extrabold
                     rounded-3xl
@@ -85,7 +85,7 @@
                     </div>
                     <!--                    <div :hidden="true">{{filterDate=project}}</div>-->
                     <div
-                        :class="index+1 <= ( mainData.count > 1 ? Math.round(mainData.count) : Math.ceil(mainData.count)<1?1:Math.ceil(mainData.count))?' bg-green-600 ': ' bg-red-600 text-white' "
+                        :class="index+1 <= ( mainData?.count > 1 ? Math.round(mainData?.count) : Math.ceil(mainData?.count)<1?1:Math.ceil(mainData?.count))?' bg-green-600 ': ' bg-red-600 text-white' "
                         class="min-w-fit
                       px-2
                       ml-2
@@ -95,7 +95,7 @@
                       text-center
                       text-white"
                     >
-                      {{ project.order?.process|objectFilter }}%
+                      {{ project?.order?.process|objectFilter }}%
                     </div>
                   </dropcard>
                 </Draggable>
@@ -183,9 +183,7 @@ export default {
     scrollFooterStart() {
       let currentScroll = document.documentElement.scrollTop
       this.edite = setInterval(frame, 6)
-
       function frame() {
-
         currentScroll = currentScroll + 5
         document.documentElement.scrollTop = currentScroll
 
@@ -204,22 +202,17 @@ export default {
       var yyyy = today.getFullYear();
 
       today = mm + '/' + dd + '/' + yyyy;
-      console.log((await this.$axios.get(`/orderCalendar/?date=${today}`)).data, 'server')
-      await this.$store.dispatch('setDragAndDrop', (await this.$axios.get(`/orderCalendar/?date=${today}`)).data)
+      await this.$store.dispatch('setDragAndDrop', (await this.$axios.get(`/orderCalendar/?date=${today}`))?.data)
       this.mainData = await this.$store.getters['getDragAndDrop']
 
-
-
-      if (await this.mainData.data) {
+      if (await this.mainData?.data) {
         let currentScroll = document.documentElement.scrollTop
         currentScroll = currentScroll + 1200
         document.documentElement.scrollTop = currentScroll
-        console.log(document.documentElement.scrollTop)
       }
     } catch (err) {
       console.log(err)
     }
-
   }
 }
 </script>

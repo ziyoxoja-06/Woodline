@@ -1,6 +1,12 @@
 <template>
   <div class="container flex justify-center md:px-[20%] xl:px-[30%] lg:px-[20%] px-[10%] sm:px-[10%] mt-28 messagess">
+
     <v-card class=" flex justify-center p-12 pb-30 rounded-lg ">
+      <v-card-title>
+        <div class="w-full flex justify-center">
+          <v-alert class="text-center" width="100%" v-if="alert" type="error">{{aletrText}}</v-alert>
+        </div>
+      </v-card-title>
       <v-card-text>
         <v-form
             ref="form"
@@ -27,7 +33,6 @@
       </v-card-text>
       <v-card-actions class="mt-10">
         <v-btn
-            :disabled="!valid"
             class="mr-4 "
             color="success"
             @click="validates"
@@ -51,9 +56,9 @@ export default {
 // eslint-disable-next-line
   name: "Login",
   data: () => ({
-    vertical: true,
-    snackbar:true,
-    dom:'',
+    alert:false,
+    aletrText:'',
+    alertType:'',
     valid: true,
     name: '',
     nameRules: [
@@ -65,9 +70,7 @@ export default {
       v => !!v || "Paro'lingizni kriting",
       v => (v && v.length <= 15) || 'Name must be less than 15 characters',
     ],
-
   }),
-
   methods: {
     async validates() {
       if (this.$refs.form.validate()) {
@@ -78,30 +81,22 @@ export default {
               await this.$router.push('/')
             }
             else {
-              this.passwordRules=['Password wrong']
-              setTimeout(()=>{this.$refs.form.reset()},2000)
-              this.name=' '
+              this.alert = true
+              this.aletrText = 'Password wrong'
+              setTimeout(()=>{this.$refs.form.reset(); this.alert =false},2000)
             }
           }else {
-            this.name=' '
-            this.nameRules=['Login name wrong']
-            setTimeout(()=>{this.$refs.form.reset()},2000)
+            this.alert =true
+            this.aletrText= 'Login name wrong'
+            setTimeout(()=>{this.$refs.form.reset(); this.alert =false},2000)
           }
       } else {
-        this.name = ''
-        this.password = ''
+        this.$refs.form.reset()
       }
     },
     reset() {
       this.$refs.form.reset()
     }
   },
- async mounted() {
-
-  },
 }
 </script>
-
-<style scoped>
-
-</style>
