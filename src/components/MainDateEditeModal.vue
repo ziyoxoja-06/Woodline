@@ -140,7 +140,7 @@ export default {
         this[l] = false
       },2000)
       this.loader2 = null
-      this.selectModelId=''
+      this.selectModelName=''
       this.$emit('editeModalClose', true)
     },
     searchEnd: function () {
