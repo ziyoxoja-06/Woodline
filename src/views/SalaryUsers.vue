@@ -8,7 +8,7 @@
               v-model="selectValue"
               :items="selectData"
               :rules="[v => !!v || 'Item is required']"
-              label="Model"
+              label="Имя"
               required
           />
         </span>
@@ -20,7 +20,7 @@
         </div>
 
       </v-card-title>
-      <v-card-text id="cardss">
+      <v-card-text>
         <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
@@ -28,12 +28,14 @@
             label="Поиск..."
             single-line
         ></v-text-field>
-        <h1 class="text-2xl font-extrabold flex justify-center my-5">{{collectPrice|filterPrice}}</h1>
-        <v-data-table
-            :headers="headers"
-            :items="complateDates"
-            :search="search"
-        ></v-data-table>
+        <div  id="cardss">
+          <h1 class="text-2xl font-extrabold flex justify-center my-5">{{collectPrice|filterPrice}}</h1>
+          <v-data-table
+              :headers="headers"
+              :items="complateDates"
+              :search="search"
+          ></v-data-table>
+        </div>
       </v-card-text>
     </v-card>
   </div>

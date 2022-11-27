@@ -1,7 +1,7 @@
 <template>
   <div class="container w-[100%] mx-auto text-center">
     <div class="w-full h-fit  p-6 bg-blue-300">
-
+      <!--   Teable header start -->
       <div class="flex items-center">
         <div class="w-fit h-fit md:w-full lg:w-full gap-x-10  flex py-4 items-center pr-5">
           <div class="text-[13px] sm:text-[17px]">Priniyat zakaz:</div>
@@ -32,20 +32,20 @@
           </button>
         </div>
       </div>
-
-
+      <!--   Teable header end -->
       <table class="w-full h-fit">
         <div v-for="(data, i) of  $store.getters['getMainTableData']" :key="i" class="border-b flex justify-between relative h-fit border-gray-800 ">
+        <!--     EditeBtn start   -->
+          <v-btn class="rounded-3xl mt-3" @click="openEditeModal(data)" text x-small>
+            <v-icon color="pink darken-1">mdi-pencil-plus</v-icon>
+          </v-btn>
+        <!--     EditeBtn end   -->
+
           <div class="w-[33%] flex justify-center">
             <div class="mt-[5%]">
 
               <button
-                  :class="(+(data?.order?.delivery_date.slice(0,4)))<(thisYear)?'bg-red-500':
-                            (+(data?.order?.delivery_date.slice(5,7)))>=(+todayMonth)?
-                              (+data?.order?.delivery_date.slice(5,7)>=(+todayMonth))&&(+data?.order?.delivery_date.slice(8,10)<(+todayDay)+2)?'bg-red-600':
-                               (+data?.order?.delivery_date.slice(5,7)>=(+todayMonth))&&(+data?.order?.delivery_date.slice(8,10)<=(+todayDay)+6)?'bg-yellow-400':
-                               +data?.order?.delivery_date.slice(5,7)>=(+todayMonth)&& +data?.order?.delivery_date.slice(8,10)>=(+todayDay)+6?'bg-green-600':'bg-red-600':'bg-red-600'
-                               "
+                  :class="getDateColor(data)"
 
                   class="p-1
                            text-white
@@ -108,11 +108,9 @@
                     <v-icon color="white">mdi-check</v-icon>
                   </button>
                 </div>
-
               </div>
               <v-spacer/>
               <div>
-
               </div>
               <v-btn
                   :disabled="data.is_completed===false"
@@ -121,12 +119,11 @@
                 <v-icon color="white" x-large>mdi-arrow-right-thin</v-icon>
               </v-btn>
             </div>
-
           </div>
-
         </div>
       </table>
       <modal :productLevel="openLevelModal" @close="closeLevelModal"/>
+      <main-date-edite-modal :editeModal="editeModal" :editeModaleDate="editeModalDate" @editeModalClose="editeModalClose"/>
       <product-create :productCreate="openCreateProduct" @closemodal="closeCreateModal"/>
       <search-modal :searchDates="searchData" :searchOpen="search" @searchEnd="searchEnd" />
     </div>
@@ -135,8 +132,9 @@
 </template>
 
 <script>
-import {selects, todayDay, todayMonth,thisYear} from "@/utils/tableHelpFiles/Table.js";
+import {selects,todayDate} from "@/utils/tableHelpFiles/Table.js";
 import modal from "@/components/ProductNextLevel";
+import mainDateEditeModal from "@/components/MainDateEditeModal";
 import ProductCreate from "@/components/ProductCreate";
 import searchModal from "@/components/SearchModal";
 
@@ -144,16 +142,15 @@ import searchModal from "@/components/SearchModal";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'maintable',
-  components: {ProductCreate, modal,searchModal},
-  computed: {},
+  components: {ProductCreate, modal,searchModal,mainDateEditeModal},
   data() {
     return {
       selects,
       select: "srok dostavki",
       allData: [],
-      todayDay,
-      todayMonth,
-      thisYear,
+      todayDate,
+      editeModal:true,
+      editeModalDate:[],
       openLevelModal: true,
       openCreateProduct: true,
       search:true,
@@ -163,6 +160,16 @@ export default {
   },
 
   methods: {
+    getDateColor(data){
+     return (+(data?.order?.delivery_date.split('-').join('')))<=(+todayDate.split('-').join(''))+2?'bg-red-600':
+         (+(data?.order?.delivery_date.split('-').join('')))<=(+todayDate.split('-').join(''))+6?'bg-yellow-400':
+             (+(data?.order?.delivery_date.split('-').join('')))>=(+todayDate.split('-').join(''))+6?'bg-green-600':'bg-red-600'
+    },
+    openEditeModal(date){
+      this.editeModalDate=date
+      console.log(this.editeModalDate,'dateModal', date,'date')
+      this.editeModal=!this.editeModal
+    },
     searchEnd: function (end) {
       this.search =end
       this.searchData=[]
@@ -182,29 +189,29 @@ export default {
       })
       this.search =false
     },
+    editeModalClose(close){this.editeModal=close},
     openLevelModalf: async function (i) {
       this.openLevelModal = false
       await this.$store.dispatch('setUserTableData', this.$store.getters['getMainTableData'][i])
       await this.$store.dispatch('setMainTableDate', (await this.$axios.get('process')).data)
     },
-    closeLevelModal: function (close) {
-      this.openLevelModal = close
-    },
-    openCreateProductf: async function () {
-      this.openCreateProduct = false
-    },
-    closeCreateModal: async function (close) {
-      this.openCreateProduct = close
-    },
+    closeLevelModal: function (close) {this.openLevelModal = close},
+
+    openCreateProductf: async function () {this.openCreateProduct = false},
+
+    closeCreateModal: async function (close) {this.openCreateProduct = close},
+
     completFunk(i) {
       let id = this.$store.getters['getMainTableData'][i].process_id
       this.$axios.put('process', {id})
     }
   },
-
   async beforeCreate() {
     try {
+      console.log('sdfsd')
       await this.$store.dispatch('setMainTableDate', (await this.$axios.get('process')).data)
+      console.log((await this.$axios.get('process')).data,'back')
+
     } catch (err) {
       console.log(err)
     }

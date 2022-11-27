@@ -22,7 +22,7 @@
             <td>{{ item.position_name }}</td>
             <td>{{ item.position_percent }}</td>
             <td>
-              <v-btn class=" rounded-xl"
+              <v-btn  class=" rounded-xl"
                      color="error">
                 Удалить
               </v-btn>
