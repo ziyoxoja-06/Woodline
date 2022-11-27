@@ -124,6 +124,8 @@ export default {
      },2000)
      this.loader1 = null
       this.selectModelId=''
+      this.$emit('editeModalClose', true)
+
     },
     async changeName(){
       this.alertText="Ishchi nomi o'zgardi"
@@ -139,6 +141,7 @@ export default {
       },2000)
       this.loader2 = null
       this.selectModelId=''
+      this.$emit('editeModalClose', true)
     },
     searchEnd: function () {
       this.loader2 = null
