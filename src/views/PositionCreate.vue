@@ -20,6 +20,7 @@
               name="precent"
           ></v-text-field>
         </v-form>
+
       </v-card-text>
 
       <v-card-actions>

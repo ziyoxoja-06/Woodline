@@ -6,9 +6,11 @@
     { title: 'Собран', icon: 'mdi-table', path:'/complate-projects' },
     { title: 'Карточки на столе', icon: 'mdi-order-bool-ascending', path:'/order-product' },
     { title: 'Календарь', icon: 'mdi-calendar-cursor', path:'/drag' },
-    { title: 'Price', icon: 'mdi-cash-plus', path:'/price' },
-    { title: 'Salary', icon: 'mdi-account-cash', path:'/salary' },
-    ],
+    { title: 'Цена', icon: 'mdi-cash-plus', path:'/price' },
+    { title: 'З.П.', icon: 'mdi-account-cash', path:'/salary' },
+    { title: 'Add Position', icon: 'mdi-cash-sync', path:'/add-position' },
+
+     ],
     itemsDrop = [
     { title: 'Chiqish'},
 ]

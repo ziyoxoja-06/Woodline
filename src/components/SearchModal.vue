@@ -66,7 +66,7 @@ export default {
       },
       { text: 'Модель', value: 'model' },
       { text: 'Пользователь', value: 'user' },
-      { text: 'Должность', value: 'role' },
+      { text: 'Тип работы', value: 'role' },
       { text: 'Дата', value: 'date' },
     ],
   }),

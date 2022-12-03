@@ -56,6 +56,13 @@ const routes = [
   },
   {
     // eslint-disable-next-line
+    path: '/add-position',
+    name: 'AddPosition',
+    meta:{layout:'main', auth:true},
+    component: () => import('../views/AddPosition.vue')
+  },
+  {
+    // eslint-disable-next-line
     path: '/user-create',
     name: 'UserCreate',
     meta:{layout:'main', auth:true},

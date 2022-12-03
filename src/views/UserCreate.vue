@@ -61,13 +61,12 @@
           </v-simple-table>
         </v-form>
       </v-card-text>
-
-
     </v-card>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "UserAdd",
   props: {
@@ -92,6 +91,7 @@ export default {
       ],
     }
   },
+
   methods: {
     clear: function () {
       this.loader = null

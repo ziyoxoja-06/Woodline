@@ -158,9 +158,12 @@ export default {
       searchData:[],
     }
   },
-
   methods: {
+
     getDateColor(data){
+      console.log((+(data?.order?.delivery_date.split('-').join(''))),(+(todayDate.split('-').join(''))+2),todayDate)
+
+
      return (+(data?.order?.delivery_date.split('-').join('')))<=(+todayDate.split('-').join(''))+2?'bg-red-600':
          (+(data?.order?.delivery_date.split('-').join('')))<=(+todayDate.split('-').join(''))+6?'bg-yellow-400':
              (+(data?.order?.delivery_date.split('-').join('')))>=(+todayDate.split('-').join(''))+6?'bg-green-600':'bg-red-600'
